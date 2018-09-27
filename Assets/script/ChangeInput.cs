@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // todo: write better
+// i know its ugly
+
+enum Hardness {Easy=3, Normal=4, Medium=6, Hard=8}
+
 public class ChangeInput : MonoBehaviour {
 
     public Text first;
@@ -10,8 +14,13 @@ public class ChangeInput : MonoBehaviour {
     public Text third;
     public Text fourth;
 
+    Hardness hardness = Hardness.Medium;
+    public Text[] numbers = new Text[(int) Hardness.Medium];
+
     public Text result;
     public Text randomNumber;
+
+
 
     int focusedIndex = 0;
     string actualNumber;
@@ -19,12 +28,13 @@ public class ChangeInput : MonoBehaviour {
     System.Random ran = new System.Random();
 
     ChangeInput() {
-        actualNumber = random();
+        actualNumber = random((int)hardness);
     }
 
     public void ChangeInputValue(int value) {
         Debug.Log("new value " + value.ToString());
         Debug.Log("new index " + focusedIndex.ToString());
+
         switch (focusedIndex) {
             case 0:
                 first.text = value.ToString();
@@ -54,7 +64,7 @@ public class ChangeInput : MonoBehaviour {
         randomNumber.text = actualNumber;
     }
 
-    private string random()
+    private string random(int size)
     {
         int[] numbers = new int[] {1,2,3,4,5,6,7,8,9};
         int _min = 0;
@@ -69,7 +79,14 @@ public class ChangeInput : MonoBehaviour {
             numbers[i1] = numbers[i2];
             numbers[i2] = temp;
         }
-        return numbers[0] + "" + numbers[1] + "" + numbers[2] + "" + numbers[3]; // i know its ugly
+
+        string res = "";
+        for (int i = 0; i < size; i++)
+        {
+            res += numbers[i];
+        }
+
+        return res; 
     }
 
 
