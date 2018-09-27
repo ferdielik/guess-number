@@ -5,16 +5,17 @@ using UnityEngine.UI;
 // todo: write better
 // i know its ugly
 
-enum Hardness {Easy=3, Normal=4, Medium=6, Hard=8}
+enum Hardness {Easy=3, Normal=4, Medium=5, Hard=6, Brutal=8}
 
 public class ChangeInput : MonoBehaviour {
 
     public Text guess;
 
-    Hardness hardness = Hardness.Medium;
-    public Text[] numbers = new Text[(int) Hardness.Medium];
+    Hardness hardness = Hardness.Hard;
+    public Text[] numbers = new Text[(int) Hardness.Hard];
 
     public Text result;
+    public Text cursor;
     public Text randomNumber;
 
 
@@ -33,6 +34,12 @@ public class ChangeInput : MonoBehaviour {
         Debug.Log("new index " + focusedIndex.ToString());
 
         guess.text = changeValue(guess.text, focusedIndex, value);
+        cursor.text = "";
+        for (int i = 0; i < guess.text.Length; i ++)
+        {
+            cursor.text += i == focusedIndex ? "_" : "  ";
+        }
+
         focusedIndex = (focusedIndex+1) % ((int) hardness);
     }
 
