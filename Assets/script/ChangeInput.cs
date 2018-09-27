@@ -9,17 +9,13 @@ enum Hardness {Easy=3, Normal=4, Medium=6, Hard=8}
 
 public class ChangeInput : MonoBehaviour {
 
-    public Text first;
-    public Text second;
-    public Text third;
-    public Text fourth;
+    public Text guess;
 
     Hardness hardness = Hardness.Medium;
     public Text[] numbers = new Text[(int) Hardness.Medium];
 
     public Text result;
     public Text randomNumber;
-
 
 
     int focusedIndex = 0;
@@ -29,27 +25,20 @@ public class ChangeInput : MonoBehaviour {
 
     ChangeInput() {
         actualNumber = random((int)hardness);
+        numbers = new Text[(int)Hardness.Medium];
     }
 
     public void ChangeInputValue(int value) {
         Debug.Log("new value " + value.ToString());
         Debug.Log("new index " + focusedIndex.ToString());
 
-        switch (focusedIndex) {
-            case 0:
-                first.text = value.ToString();
-                break;
-            case 1:
-                second.text = value.ToString();
-                break;
-            case 2:
-                third.text = value.ToString();
-                break;
-            case 3:
-                fourth.text = value.ToString();
-                break;
-        }
-        focusedIndex++;
+        guess.text = changeValue(guess.text, focusedIndex, value);
+        focusedIndex = (focusedIndex+1) % ((int) hardness);
+    }
+
+    private string changeValue(string str, int index, int newValue)
+    {
+        return str.Substring(0, index) + newValue + str.Substring(index + 1, (str.Length - 1 - index));
     }
 
     public void ChangeInputIndex(int index)
@@ -59,8 +48,7 @@ public class ChangeInput : MonoBehaviour {
 
     public void CheckScore()
     {
-        string guess = first.text + second.text + third.text + fourth.text;
-        result.text = findPoint(actualNumber, guess);
+        result.text = findPoint(actualNumber, guess.text);
         randomNumber.text = actualNumber;
     }
 
@@ -114,5 +102,20 @@ public class ChangeInput : MonoBehaviour {
             }
         }
         return ("+" + plusPoint + "  " + " - " + minusPoint);
+    }
+
+    private bool checkUniqueNumber(string num)
+    {
+        for (int i = 0; i < num.Length; i++)
+        {
+            for (int j = i + 1; j < num.Length; j++)
+            {
+                if (num[i] == num[j])
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
