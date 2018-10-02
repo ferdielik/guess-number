@@ -9,7 +9,7 @@ public class MainSceneRouter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SceneManager.LoadScene ("SampleScene", LoadSceneMode.Single);
+		
 	}
 	
 	// Update is called once per frame
@@ -18,9 +18,10 @@ public class MainSceneRouter : MonoBehaviour {
 	}
 
 	public void playButtonOnClick(){
-		
-		//SceneManager.LoadScene ("SampleScene", LoadSceneMode.Additive);
-		Debug.Log ("inside the method");
+
+        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        //SceneManager.LoadScene ("SampleScene", LoadSceneMode.Additive);
+        Debug.Log ("inside the method");
 	}
 
 	
