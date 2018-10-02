@@ -30,22 +30,34 @@ public class ChangeInput : MonoBehaviour {
     }
 
     public void ChangeInputValue(int value) {
-        Debug.Log("new value " + value.ToString());
-        Debug.Log("new index " + focusedIndex.ToString());
-
         guess.text = changeValue(guess.text, focusedIndex, value);
-        cursor.text = "";
-        for (int i = 0; i < guess.text.Length; i ++)
-        {
-            cursor.text += i == focusedIndex ? "_" : "  ";
-        }
+        IncreaseIndex();
+    }
 
-        focusedIndex = (focusedIndex+1) % ((int) hardness);
+    public void IncreaseIndex()
+    {
+        focusedIndex = (focusedIndex + 1) % ((int)hardness);
+        updateCursor();
+    }
+
+    public void DecreaseIndex()
+    {
+        focusedIndex = (focusedIndex - 1 + ((int)hardness)) % ((int)hardness);
+        updateCursor();
     }
 
     private string changeValue(string str, int index, int newValue)
     {
         return str.Substring(0, index) + newValue + str.Substring(index + 1, (str.Length - 1 - index));
+    }
+
+    private void updateCursor()
+    {
+        cursor.text = "";
+        for (int i = 0; i < guess.text.Length; i++)
+        {
+            cursor.text += i == focusedIndex ? "_" : "  ";
+        }
     }
 
     public void ChangeInputIndex(int index)
