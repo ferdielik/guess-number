@@ -7,22 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class MainSceneRouter : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public void OpenScene(string sceneName){
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
 	}
 
-	public void playButtonOnClick(){
-
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
-        //SceneManager.LoadScene ("SampleScene", LoadSceneMode.Additive);
-        Debug.Log ("inside the method");
-	}
-
-	
 }
